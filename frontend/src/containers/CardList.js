@@ -1,5 +1,5 @@
-import Card from './Card';
-import posts from './data/Posts';
+import Card from '../components/Card';
+import posts from '../data/Posts';
 
 function RenderCardList() {//cards }) {
 

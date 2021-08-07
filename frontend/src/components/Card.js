@@ -1,6 +1,6 @@
 function Card({ score, imageURL }) {
     return (
-        <div id="card-1" className="card d-flex flex-row">
+        <li id="card-1" className="card d-flex flex-row">
             <div
                 className="card-control-panel h-100 d-flex flex-column justify-content-around align-items-center">
 
@@ -21,7 +21,7 @@ function Card({ score, imageURL }) {
             <div className="card-content w-100" style={{
                 backgroundImage: `url(${imageURL})`, height: "300px", backgroundRepeat: "no-repeat"
             }}></div>
-        </div >
+        </li>
     )
 }
 

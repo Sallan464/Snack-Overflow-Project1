@@ -1,4 +1,4 @@
-import icon from './icon.png';
+import icon from '../icon.png';
 
 function Header() {
     return (
