@@ -1,20 +1,22 @@
 /* Contents
 
-0) Colors
-
-1) Typography
-2) Cards
+1) Variables
+    > Colors
+2) Typography
+3) Cards
+4) Media Queries
 
 */
 
-/* 0) Colors */
+/* 1) Variables */
 :root {
+    /* Colors */
     --offwhite: #f8f8f8;
     --verylightgrey: #dfdfdf;
     --nicegreen: #17a740;
 }
 
-/* 1) Typography */
+/* 2) Typography */
 @import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@300&family=Maitree&family=Roboto&display=swap');
 
 h1, h2 {
@@ -29,12 +31,14 @@ p, a {
     font-family: 'Roboto', sans-serif;
 }
 
-/* 2) Cards */
+/* 3) Cards */
 
 /* NOTE: this card class is overwriting Bootstrap */
 .card {
     height: 300px;
+    width: 100%;
     border: 0;
+
     /* border-radius: 10px; */
     /* border: solid rgb(215, 215, 215) 15px; */
     background-color: var(--verylightgrey);
@@ -81,22 +85,62 @@ p, a {
     /* background-color: blue; */
     background: url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/190322-ham-sandwich-horizontal-1553721016.png?crop=0.668xw:1.00xh;0.168xw,0&resize=980:*");
     background-size: cover;
+    background-position: center;
 }
 
-.col-width {
-    /* This will need to be changed for mobile widths (would not need to be a media query) */
-    min-width: 500px;
-    max-width: 50%;
-}
-
-/* NOTE: this will be handled by JS Script in future */
-#card-1 {
-    /* background: url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/190322-ham-sandwich-horizontal-1553721016.png?crop=0.668xw:1.00xh;0.168xw,0&resize=980:*");
-    background-size: cover; */
+.col {
+    padding: 0;
+    margin: 0;
+    max-width: 600px;
+    min-width: 375px;
 }
 
 /* Other */
 #navbar-icon {
     width: 30px;
     height: 30px;
+}
+
+/* .row {
+ margin: 0;
+ padding: 0;
+ width: 100vw;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+}
+
+.App {
+    width: 100%;
+    height: 100%;
+}
+
+main {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+} */
+
+/* 4) Media Queries */
+
+/*
+Breakpoints
+320px — 480px: Mobile devices.
+481px — 768px: iPads, Tablets.
+769px — 1024px: Small screens, laptops.
+1025px — 1200px: Desktops, large screens.
+1201px and more — Extra large screens, TV.
+*/
+
+@media screen and (min-width: 375px) {
+    .card {
+        margin: 20px 0;
+    }
+}
+@media screen and (max-width: 375px) {
+    .card {
+        margin: 0 0;
+    }
 }
