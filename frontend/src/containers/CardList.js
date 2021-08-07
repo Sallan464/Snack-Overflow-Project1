@@ -1,24 +1,36 @@
+import React from 'react';
 import Card from '../components/Card';
-import posts from '../data/Posts';
+import { getSortedPosts, posts } from '../data/Posts';
 
-function RenderCardList() {//cards }) {
+class CardList extends React.Component {
 
-    //temp
-    const id = 0;
+    constructor(props) {
+        super(props);
+        this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
+    }
 
-    return (
-        <ul>
-            {
-                posts.map(post => {
-                    return <Card
-                        key={post.id}
-                        imageURL={post.imageURL}
-                        caption={post.caption}
-                        score={post.score} />
-                })
-            }
-        </ul>
-    )
+    rerenderParentCallback() {
+        // TODO: call resort logic here
+        // then rerender;
+        this.forceUpdate();
+    }
+
+    render() {
+        return (
+            <ul>
+                {
+                    posts.map(post => {
+                        return <Card
+                            key={post.id}
+                            imageURL={post.imageURL}
+                            caption={post.caption}
+                            score={post.score}
+                            rerenderParentCallback={this.rerenderParentCallback} />
+                    })
+                }
+            </ul >
+        )
+    }
 }
 
-export default RenderCardList
+export default CardList
