@@ -4,7 +4,6 @@ import Main from './containers/Main';
 
 function App() {
 
-    let testArr = ['1', '2', '3'];
     return (
         <div>
             <Header />

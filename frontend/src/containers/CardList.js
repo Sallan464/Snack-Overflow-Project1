@@ -7,11 +7,12 @@ class CardList extends React.Component {
     constructor(props) {
         super(props);
         this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
+        this.posts = getSortedPosts();
     }
 
     rerenderParentCallback() {
-        // TODO: call resort logic here
-        // then rerender;
+        this.posts = getSortedPosts();
+        console.log(this.posts);
         this.forceUpdate();
     }
 
@@ -19,12 +20,12 @@ class CardList extends React.Component {
         return (
             <ul>
                 {
-                    posts.map(post => {
+                    this.posts.map(post => {
+                        console.log(post);
                         return <Card
-                            key={post.id}
-                            imageURL={post.imageURL}
-                            caption={post.caption}
-                            score={post.score}
+                            // key={this.posts.indexOf(post)}
+                            post={post}
+                            posts={posts}
                             rerenderParentCallback={this.rerenderParentCallback} />
                     })
                 }
