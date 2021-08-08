@@ -1,18 +1,19 @@
 /* Contents
 
-0) Normalise
+0) Global Normalise
 1) Colors 
 2) Typography
-3) Cards
-4) Navbar
-5) Media Queries
+3) Navbar
+4) Cards
+5) Forms
+6) Media Queries
 
 /* 
     NOTE: This CSS stylesheet is intended to overwrite Bootstrap 4
     cdn: https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css
 */
 
-/* 0) Normalise */
+/* 0) Global Normalise */
 * {
     padding: 0;
     margin: 0;
@@ -40,7 +41,21 @@ p, a {
     font-family: 'Roboto', sans-serif;
 }
 
-/* 3) Cards */
+/* 3) Navbar */
+#navbar-icon {
+    width: 30px;
+    height: 30px;
+}
+
+nav {
+    height: 70px;
+}
+
+main {
+    margin-top: 70px;
+}
+
+/* 4) Cards */
 .card {
     height: 300px;
     width: 100%;
@@ -95,13 +110,33 @@ p, a {
     min-width: 375px;
 }
 
-/* 4) Navbar */
-#navbar-icon {
-    width: 30px;
-    height: 30px;
+/* 5) Forms */
+
+/* normalise text inputs */
+input, textarea {
+    border-radius: 0 !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    resize: none !important; /*remove the resize handle on the bottom right*/
 }
 
-/* 5) Media Queries */
+/* add hr */
+#user-caption, #user-name {
+    border: 0;
+    border-bottom: 4px solid black;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+#upload-col {
+    min-width: 150px;
+}
+
+/* 6) Media Queries */
 /* small vertical margin between cards on larger screens */
 @media screen and (min-width: 574px) {
     .card {
@@ -115,3 +150,9 @@ p, a {
         margin: 0 0;
     }
 }
+
+/* @media screen and (max-width: 519px) {
+    #upload-col {
+        margin-left: 30px;
+    }
+} */
