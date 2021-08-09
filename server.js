@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+app.use(cors())
 
 // port set by Heroku or 8080
 const port = process.env.PORT   || 8080
