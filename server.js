@@ -9,7 +9,7 @@ app.use(cors());
 const port = process.env.PORT || 8080
 
 // use to connect to front end files once we merge the branches
-app.use(cors());
+
 app.use(express.static(__dirname));
 
 
@@ -30,11 +30,8 @@ app.listen(port, () => {
     console.log("app is running");
 })
 
-<<<<<<< HEAD
+
 app.get("/info", (req, res) => {
-=======
-app.get("/info",  (req, res) => {
->>>>>>> 0db0438569febdfd21cd274165211cb71ccd512a
     res.send(posts)
 })
 
