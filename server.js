@@ -23,7 +23,7 @@ app.listen(port, ()=>{
     console.log("app is running");
 })
 
-app.get("/info", (req, res) => {
-    res.send(posts)
-})
+// app.get("/info", (req, res) => {
+//     res.send(posts)
+// })
 
