@@ -5,11 +5,11 @@ const app = express();
 const port = process.env.PORT   || 8080
 
 // use to connect to front end files once we merge the branches
-//app.use(express.static(__dirname));
+app.use(express.static(__dirname));
 
 //routes
 app.get("/", (req, res) => {
-    res.render("index");
+    res.send("index");
 })
 
 app.listen(port, ()=>{
