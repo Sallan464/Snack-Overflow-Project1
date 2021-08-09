@@ -11,13 +11,13 @@ class RestfulInterface {
         // temporary hardcoding of url
         //const data = await fetch('http://localhost:8000/');
 
-        //fetch('https://the-artist-fka-snack-overflow.herokuapp.com/info', {
-        fetch('http://localhost:8080', {
+        fetch('https://the-artist-fka-snack-overflow.herokuapp.com/info', {
+        //fetch('http://localhost:8080', {
             // mode: 'no-cors',
             method: 'GET',
-            headers: {
-                Accept: 'application/json',
-            },
+            // headers: {
+            //     Accept: 'application/json',
+            // },
         },
         ).then(response => {
             console.log('test');
