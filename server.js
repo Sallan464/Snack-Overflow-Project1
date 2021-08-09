@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+app.use(cors());
+
+
 
 // port set by Heroku or 8080
 const port = process.env.PORT || 8080
@@ -8,6 +11,8 @@ const port = process.env.PORT || 8080
 // use to connect to front end files once we merge the branches
 app.use(cors());
 app.use(express.static(__dirname));
+
+
 
 let posts = [
     { imageURL: "https://realfood.tesco.com/media/images/RFO-1400x919-ChickenClubSandwich-0ee77c05-5a77-49ac-a3bd-4d45e3b4dca7-0-1400x919.jpg", caption: "chicken triangle with dip" },
@@ -25,7 +30,11 @@ app.listen(port, () => {
     console.log("app is running");
 })
 
+<<<<<<< HEAD
 app.get("/info", (req, res) => {
+=======
+app.get("/info",  (req, res) => {
+>>>>>>> 0db0438569febdfd21cd274165211cb71ccd512a
     res.send(posts)
 })
 

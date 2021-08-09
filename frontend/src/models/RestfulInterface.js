@@ -9,9 +9,9 @@ class RestfulInterface {
             //fetch('http://localhost:8080/info', {
             // mode: 'no-cors',
             method: 'GET',
-            headers: {
-                Accept: 'application/json',
-            },
+            // headers: {
+            //     Accept: 'application/json',
+            // },
         },
         ).then(response => {
             if (response.ok) {
