@@ -17,7 +17,7 @@ class Header extends React.Component {
     render() {
         return (
             <header>
-                <nav className="navbar navbar-light bg-light fixed-top">
+                <nav className="navbar navbar-expand-lg d-flex navbar-light bg-light fixed-top py-3">
                     <button id="navbar-brand" className="navbar-brand" onClick={this.props.isCreatePostSelectedToggler}>
                         <img id="navbar-icon" src={icon} alt="stackoverflow icon" />
                         SnackOverflow
