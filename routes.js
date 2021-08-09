@@ -7,21 +7,22 @@ router.get("/", (req, res) => {
 })
 
 router.post("/post", (req, res) => {
-    //img caption score date-time comments
-    let imageURL = req.body.imageURL
-    let caption = req.body.caption
-    let score = req.body.score
-    let id = req.body.id
-    let dateTime = Date.now()
-    let newPost= {
-    'imageURL' : imageURL,
-    'caption' : caption,
-    'score' : score,
-    'id' : id,
-    'dateTime' : dateTime
-    }
-    res.send(newPost)
+    // to be replaced requestawsthing(res)
 })
+
+router.put("/increment", (req, res) => {
+    // function increment(res)
+})
+
+router.put("/decrease", (req, res) => {
+    // function decrease(res)
+})
+
+router.put("/comment", (req, res) => {
+    // function comment(res)
+})
+
+
 
 // score and comments
 
