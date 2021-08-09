@@ -1,18 +1,12 @@
-import { fakeData } from "../data/Posts";
+import { posts, fakeData } from "../data/Posts";
+import Post from "./Post";
 
 class RestfulInterface {
 
-    constructor() {
-        // this._apiURL = "http://localhost:8000/";
-        // this._allPostsEndpoint = "";
-    }
-
-    static async refreshPosts() {
-        // temporary hardcoding of url
-        //const data = await fetch('http://localhost:8000/');
-
-        //fetch('https://the-artist-fka-snack-overflow.herokuapp.com/info', {
-        fetch('http://localhost:8080', {
+    static refreshPosts() {
+        // Live API or Local
+        fetch('https://the-artist-fka-snack-overflow.herokuapp.com/info', {
+            //fetch('http://localhost:8080/info', {
             // mode: 'no-cors',
             method: 'GET',
             headers: {
@@ -20,23 +14,19 @@ class RestfulInterface {
             },
         },
         ).then(response => {
-            console.log('test');
-            console.log(response);
             if (response.ok) {
                 response.json().then(json => {
-                    console.log(json);
+                    // empty array
+                    // while (posts.length > 0) {
+                    //     posts.pop();
+                    // }
+                    // repopulate
+                    for (let i = 0; i < json.length; i++) {
+                        posts.push(Post.newPost(json[i].imageURL, json[i].caption))
+                    }
                 });
             }
         });
-
-
-        // //
-        // console.log("before fetch");
-        // const data = await fetch('https://the-artist-fka-snack-overflow.herokuapp.com/info');
-        // console.log(data);
-        // console.log("where is my response?!?");
-        //const text = await data.text();
-        // console.log(text);
     }
 
     static async updatePostByID(id) {

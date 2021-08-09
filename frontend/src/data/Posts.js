@@ -8,7 +8,8 @@ let posts = [
 ];
 
 const getSortedPosts = () => {
-    return posts.sort((a, b) => b.score - a.score)
+    // return posts.sort((a, b) => b.score - a.score)
+    return posts;
 }
 
 

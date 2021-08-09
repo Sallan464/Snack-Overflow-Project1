@@ -10,7 +10,6 @@ class CardList extends React.Component {
         this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
         RestfulInterface.refreshPosts();
         this.posts = getSortedPosts();
-        // console.log(fakeData);
     }
 
     rerenderParentCallback() {
@@ -27,6 +26,7 @@ class CardList extends React.Component {
             <ul>
                 {
                     this.posts.map(post => {
+                        console.log(post);
                         return <Card
                             key={this.posts.indexOf(post)}
                             post={post}

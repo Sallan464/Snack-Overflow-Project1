@@ -26,36 +26,35 @@ class Header extends React.Component {
                             (<i className="fas fa-minus"></i>) :
                             (<i className="fas fa-plus"></i>)}
                     </button>
-
-                    <button class="navbar-toggler second-button flex-end" 
-                    type="button" 
-                    data-toggle="collapse" 
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false" 
-                    ria-label="Toggle navigation">
-                        <div class="animated-icon"><span></span><span></span><span></span><span></span>
+                    <button className="navbar-toggler flex-start second-button"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        ria-label="Toggle navigation">
+                        <div className="animated-icon"><span></span><span></span><span></span><span></span>
                         </div>
                     </button>
 
-                    <div class="collapse navbar-collapse px-4" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                         <li class="nav-item px-2">
-                             <a class="nav-link" href="#">Newest Snaccs</a>
-                         </li>
-                         <li class="nav-item px-2">
-                             <a class="nav-link" href="#">Top Snaccs</a>
-                         </li>
-                         <li class="nav-item px-2">
-                             <a class="nav-link" href="#">Hot Snaccs</a>
-                         </li>
-                         <li class="nav-item px-2">
-                             <a class="nav-link" href="#">Not Snaccs</a>
-                         </li>
-                    </ul>
+                    <div className="collapse navbar-collapse px-4" id="navbarSupportedContent">
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item px-2">
+                                <a className="nav-link" href="#">Newest Snaccs</a>
+                            </li>
+                            <li className="nav-item px-2">
+                                <a className="nav-link" href="#">Top Snaccs</a>
+                            </li>
+                            <li className="nav-item px-2">
+                                <a className="nav-link" href="#">Hot Snaccs</a>
+                            </li>
+                            <li className="nav-item px-2">
+                                <a className="nav-link" href="#">Not Snaccs</a>
+                            </li>
+                        </ul>
                     </div>
                 </nav>
-            </header> 
+            </header >
         )
     }
 }
