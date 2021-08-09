@@ -10,7 +10,7 @@ class CardList extends React.Component {
         this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
         RestfulInterface.refreshPosts();
         this.posts = getSortedPosts();
-        console.log(fakeData);
+        // console.log(fakeData);
     }
 
     rerenderParentCallback() {
