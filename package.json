@@ -9,12 +9,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-<<<<<<< HEAD
     "express": "4.17.1"
-=======
-    "express": "4.17.1",
-    "yarn": "^1.22.11"
->>>>>>> 0db0438569febdfd21cd274165211cb71ccd512a
   },
   "repository": {
     "type": "git",
