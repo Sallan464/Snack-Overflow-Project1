@@ -30,40 +30,43 @@ class Card extends React.Component {
     //       past voting on individual post after re-render.
 
     onIncrBtnClick() {
+        // Temporarily Disabled Checks!
         // if user has not already selected upvote
-        if (!this.state.hasBeenIncremented) {
-            // if user has previously selected downvote, add 2 to correct their vote 
-            this.setState({
-                score: this.state.hasBeenDecremented ?
-                    this.state.score + 2 : this.state.score + 1,
-                hasBeenIncremented: true,
-                hasBeenDecremented: false
-            })
+        // if (!this.state.hasBeenIncremented) {
+        //     // if user has previously selected downvote, add 2 to correct their vote 
+        //     this.setState({
+        //         score: this.state.hasBeenDecremented ?
+        //             this.state.score + 2 : this.state.score + 1,
+        //         hasBeenIncremented: true,
+        //         hasBeenDecremented: false
+        //     })
 
-            // update post list by incrementing post score
-            this.props.posts[this.props.posts.indexOf(this.props.post)].incrementScore();
+        // update post list by incrementing post score
+        this.props.posts[this.props.posts.indexOf(this.props.post)].incrementScore();
 
-            this.props.rerenderParentCallback();
-            this.forceUpdate();
-        }
+        this.props.rerenderParentCallback();
+        this.forceUpdate();
+        // }
     }
 
     onDecrBtnClick() {
-        if (!this.state.hasBeenDecremented) {
-            // if user has previously selected upvote, remove 2 to correct their vote 
-            this.setState({
-                score: this.state.hasBeenIncremented ?
-                    this.state.score - 2 : this.state.score - 1,
-                hasBeenIncremented: false,
-                hasBeenDecremented: true
-            });
 
-            // update post list by incrementing post score
-            this.props.posts[this.props.posts.indexOf(this.props.post)].decrementScore();
+        // Temporarily Disabled Checks!
+        // if (!this.state.hasBeenDecremented) {
+        // if user has previously selected upvote, remove 2 to correct their vote 
+        // this.setState({
+        //     score: this.state.hasBeenIncremented ?
+        //         this.state.score - 2 : this.state.score - 1,
+        //     hasBeenIncremented: false,
+        //     hasBeenDecremented: true
+        // });
 
-            this.props.rerenderParentCallback();
-            this.forceUpdate();
-        }
+        // update post list by incrementing post score
+        this.props.posts[this.props.posts.indexOf(this.props.post)].decrementScore();
+
+        this.props.rerenderParentCallback();
+        this.forceUpdate();
+        // }
     }
 
     onResetBtnClick() {

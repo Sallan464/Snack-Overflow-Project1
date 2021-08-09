@@ -42,6 +42,17 @@ p, a {
 }
 
 /* 3) Navbar */
+.navbar-brand {
+    border: none !important;
+    background-color: rgba(0,0,0,0);
+    box-shadow: none;
+}
+
+#navbar-brand:focus {
+    border: none !important;
+    box-shadow: none !important;
+}
+
 #navbar-icon {
     width: 30px;
     height: 30px;
@@ -85,12 +96,14 @@ main {
 
     /* for smooth hover */
     transition: ease-in-out 0.2s;
+}
 
+.card-control-panel button:focus {
+    box-shadow: none !important;
 }
 
 .card-control-panel button:hover {
     transform: scale(0.8);
-
 }
 
 .card-control-panel p {

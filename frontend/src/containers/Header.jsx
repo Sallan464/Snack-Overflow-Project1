@@ -17,10 +17,10 @@ class Header extends React.Component {
         return (
             <header>
                 <nav className="navbar navbar-light bg-light fixed-top">
-                    <a className="navbar-brand" href="#">
+                    <button id="navbar-brand" className="navbar-brand" onClick={this.props.isCreatePostSelectedToggler}>
                         <img id="navbar-icon" src={icon} alt="stackoverflow icon" />
                         SnackOverflow
-                    </a>
+                    </button>
                     <button onClick={this.props.isCreatePostSelectedToggler} className="btn btn-outline-success my-2 my-sm-0">
                         {this.props.isCreatePostSelected ?
                             (<i className="fas fa-plus"></i>) :
