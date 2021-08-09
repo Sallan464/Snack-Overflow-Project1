@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 // port set by Heroku or 8080
 const port = process.env.PORT   || 8080
@@ -15,7 +16,7 @@ let posts = [
 ];
 
 //routes
-app.get("/", (req, res) => {
+app.get("/", cors(), (req, res) => {
     res.send("index");
 })
 
@@ -23,7 +24,7 @@ app.listen(port, ()=>{
     console.log("app is running");
 })
 
-app.get("/info", (req, res) => {
+app.get("/info", cors(), (req, res) => {
     res.send(posts)
 })
 
