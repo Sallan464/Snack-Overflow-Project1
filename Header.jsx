@@ -1,6 +1,5 @@
 import React from 'react';
 import icon from '../icon.png';
-import * as ReactBootStrap from "react-bootstrap";
 
 class Header extends React.Component {
 
@@ -17,8 +16,8 @@ class Header extends React.Component {
     render() {
         return (
             <header>
-                <nav className="navbar navbar-light bg-light fixed-top">
-                    <button id="navbar-brand" className="navbar-brand" onClick={this.props.isCreatePostSelectedToggler}>
+                <nav class="navbar navbar-expand-lg d-flex navbar-light bg-light fixed-top py-3">
+                    <button id="navbar-brand" class="navbar-brand" onClick={this.props.isCreatePostSelectedToggler}>
                         <img id="navbar-icon" src={icon} alt="stackoverflow icon" />
                         SnackOverflow
                     </button>

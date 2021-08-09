@@ -11,4 +11,9 @@ const getSortedPosts = () => {
     return posts.sort((a, b) => b.score - a.score)
 }
 
-export { posts, getSortedPosts };
+
+// DEBUG
+
+let fakeData = [];
+
+export { fakeData, posts, getSortedPosts };

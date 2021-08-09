@@ -3,6 +3,7 @@ import CreatePostForm from './components/CreatePostForm';
 import CardList from './containers/CardList';
 import Header from './containers/Header';
 import Main from './containers/Main';
+import RestfulInterface from './models/RestfulInterface';
 
 class AppContent extends React.Component {
 
@@ -11,6 +12,10 @@ class AppContent extends React.Component {
         this.isCreatePostSelectedToggler = this.isCreatePostSelectedToggler.bind(this);
         this.state = { isCreatePostSelected: false };
     }
+
+    // componentDidMount() {
+    //     this.restfulInterface.fetchPosts();
+    // }
 
     isCreatePostSelectedToggler() {
         this.setState({
