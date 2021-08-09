@@ -12,7 +12,10 @@
     "aws-sdk": "^2.963.0",
     "cors": "^2.8.5",
     "express": "4.17.1",
+    "express-fileupload": "^1.2.1",
     "install": "^0.13.0",
+    "lodash": "^4.17.21",
+    "morgan": "^1.10.0",
     "npm": "^7.20.5"
   },
   "repository": {

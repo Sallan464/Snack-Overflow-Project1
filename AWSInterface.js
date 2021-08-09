@@ -59,7 +59,51 @@ async function replaceDataInS3(newData) {
     }
 }
 
-// Dummy data below ~~~~ //
+// function isValidFileType(file) {
+//     // TODO
+//     return true;
+// }
+
+// function isFileUnderSizeThreshold(file, thresholdBytes = 3000) {
+//     // TODO
+//     return true;
+// }
+
+async function uploadImageFileToS3(file, key) {
+
+    // NOTE: Checks can be handled by express middleware
+    // if (!isFileUnderSizeThreshold(file)) throw Error('file too big w/e');
+    // if (!isValidFileType(file)) throw Error('valid file types are ' + []);
+
+    try {
+        await authenticateAWS();
+        const s3 = new aws.S3();
+        await s3.putObject({
+            Bucket: config.aws.bucketname,
+            Key: key,
+            Body: file,
+            ACL: 'public-read'
+        }).promise();
+
+        console.log('done');
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+// NOTE: In Node use fs.createReadStream to convert local files to file objects
+const fs = require('fs');
+let testFile = fs.createReadStream('testimage.jpg');
+uploadImageFileToS3(testFile, 'test');
+//
+
+async function uploadNewPost() {
+    // should wrap calls to uploadImageFileToS3(using data.date as key)
+    // then call replaceDataInS3 with updated Json
+}
+
+// Some dummy data below ~~~~ //
 const data = {
     'posts': [
         {
@@ -79,7 +123,5 @@ const data = {
         }
     ]
 }
-
-// fetchPostsFromS3().then(resp => console.log(resp));
 
 module.exports = fetchPostsFromS3;

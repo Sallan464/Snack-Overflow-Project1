@@ -3,6 +3,11 @@ const app = express();
 const cors = require('cors');
 app.use(cors());
 
+const fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const _ = require('lodash');
+
 
 
 // port set by Heroku or 8080
@@ -11,6 +16,17 @@ const port = process.env.PORT || 8080
 // use to connect to front end files once we merge the branches
 app.use(cors());
 app.use(express.static(__dirname));
+
+//
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan('dev'));
+
+// enable files upload
+app.use(fileUpload({
+    createParentPath: true
+}));
 
 
 
@@ -30,11 +46,101 @@ app.listen(port, () => {
     console.log("app is running");
 })
 
-<<<<<<< HEAD
 app.get("/info", (req, res) => {
-=======
-app.get("/info",  (req, res) => {
->>>>>>> 0db0438569febdfd21cd274165211cb71ccd512a
     res.send(posts)
 })
+
+app.post('/upload-image', async (req, res) => {
+    try {
+        if (!req.files) {
+            res.send({
+                status: false,
+                message: 'No file uploaded'
+            });
+        } else {
+            //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
+            let avatar = req.files.avatar;
+
+            //Use the mv() method to place the file in upload directory (i.e. "uploads")
+            avatar.mv('./uploads/' + avatar.name);
+
+            //send response
+            res.send({
+                status: true,
+                message: 'File is uploaded',
+                data: {
+                    name: avatar.name,
+                    mimetype: avatar.mimetype,
+                    size: avatar.size
+                }
+            });
+        }
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+// We need this to build our post string
+var querystring = require('querystring');
+var http = require('http');
+var fs = require('fs');
+
+function PostCode(codestring) {
+    // Build the post string from an object
+    var post_data = querystring.stringify({
+        'compilation_level': 'ADVANCED_OPTIMIZATIONS',
+        'output_format': 'json',
+        'output_info': 'compiled_code',
+        'warning_level': 'QUIET',
+        'js_code': codestring
+    });
+
+    // An object of options to indicate where to post to
+    var post_options = {
+        host: 'closure-compiler.appspot.com',
+        port: '80',
+        path: '/compile',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': Buffer.byteLength(post_data)
+        }
+    };
+
+    // Set up the request
+    var post_req = http.request(post_options, function (res) {
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+            console.log('Response: ' + chunk);
+        });
+    });
+
+    // post the data
+    post_req.write(post_data);
+    post_req.end();
+
+}
+
+// Below is just to test post routing
+
+// This is an async file read
+fs.readFile('LinkedList.js', 'utf-8', function (err, data) {
+    if (err) {
+        // If this were just a small part of the application, you would
+        // want to handle this differently, maybe throwing an exception
+        // for the caller to handle. Since the file is absolutely essential
+        // to the program's functionality, we're going to exit with a fatal
+        // error instead.
+        console.log("FATAL An error occurred trying to read in the file: " + err);
+        process.exit(-2);
+    }
+    // Make sure there's data before we post it
+    if (data) {
+        PostCode(data);
+    }
+    else {
+        console.log("No data to post");
+        process.exit(-1);
+    }
+});
 
