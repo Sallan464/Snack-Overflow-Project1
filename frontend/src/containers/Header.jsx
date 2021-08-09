@@ -1,6 +1,5 @@
 import React from 'react';
 import icon from '../icon.png';
-import * as ReactBootStrap from "react-bootstrap";
 
 class Header extends React.Component {
 
