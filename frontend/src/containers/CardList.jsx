@@ -8,12 +8,13 @@ class CardList extends React.Component {
     constructor(props) {
         super(props);
         this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
-        this.posts = getSortedPosts();
         RestfulInterface.refreshPosts();
+        this.posts = getSortedPosts();
         console.log(fakeData);
     }
 
     rerenderParentCallback() {
+        RestfulInterface.refreshPosts();
         this.posts = getSortedPosts();
         this.forceUpdate();
     }
