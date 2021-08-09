@@ -39,7 +39,7 @@ async function fetchPostsFromS3() {
     } catch (e) {
         console.log(e);
     }
-};
+}
 
 async function replaceDataInS3(newData) {
     try {
@@ -57,9 +57,7 @@ async function replaceDataInS3(newData) {
     } catch (e) {
         console.log(e);
     }
-
 }
-
 
 // Dummy data below ~~~~ //
 const data = {
@@ -67,7 +65,7 @@ const data = {
         {
             'id': 0,
             'datetime': '2021-08-09T17:22:11.323Z',
-            'imageURL': 'image here',
+            'imageURL': 's3 image url here',
             'caption': 'caption here',
             'comments': ['hey great stuff', 'another comment', 'last comment']
         },
