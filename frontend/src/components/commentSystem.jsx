@@ -11,6 +11,7 @@ class CommentBox extends React.Component {
       };
     }
     
+    // renders comment box - comments are the list of comments; if the state of the button click is showing comments, button will show hide comments
     render () {
       const comments = this._getComments();
       let commentNodes;
@@ -21,10 +22,11 @@ class CommentBox extends React.Component {
         commentNodes = <div className="comment-list">{comments}</div>;
       }
       
+      //HTML for comment box - the add comment section is handled in the addComment section
       return(
         <div className="comment-box">
           <h2>Rate/Roast Your Snacks!</h2>
-          <CommentForm addComment={this._addComment.bind(this)}/> ////bind is a function, so when its called, it sets the comment to provided value from client
+          <CommentForm addComment={this._addComment.bind(this)}/> ////bind is a function, so when its called, it sets the comment to provided value from client. Bind will set the value of the comment to how it was added regardless of when/how the addComment function is called
           <button id="comment-reveal" onClick={this._handleClick.bind(this)}>
             {buttonText}
           </button>
@@ -37,6 +39,7 @@ class CommentBox extends React.Component {
       );
     } // end render
     
+    // Add Comments. the comment variable is the comment someone will type in
     _addComment(body) { //this is where the bind on line 27 comes in
       const comment = {
         id: this.state.comments.length + 1,
