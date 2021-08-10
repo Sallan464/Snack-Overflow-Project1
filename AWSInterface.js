@@ -1,15 +1,7 @@
 const aws = require('aws-sdk');
-// const config = require('./config.json');
-
-const config = {
-    aws: {
-        // IAM: 'snackoverflowuser'
-        accessKeyId: "AKIA46SV5NKP6CA4LQEZ",
-        secretAccessKey: "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",
-        bucketname: 'snackoverflow-storage',
-        filekey: 'snackoverflowposts.json'
-    }
-};
+const fs = require('fs');
+const configBuffer = fs.readFileSync('credentials.json');
+const config = JSON.parse(configBuffer);
 
 async function authenticateAWS() {
     try {
@@ -17,9 +9,10 @@ async function authenticateAWS() {
         aws.config.update({
             accessKeyId: config.aws.accessKey,
             secretAccessKey: config.aws.secretKey,
-            region: 'eu-west-2'
+            region: config.aws.region
         });
     } catch (err) {
+      console.log(err)
         throw err;
     }
 }
@@ -93,9 +86,9 @@ async function uploadImageFileToS3(file, key) {
 }
 
 // NOTE: In Node use fs.createReadStream to convert local files to file objects
-const fs = require('fs');
-let testFile = fs.createReadStream('testimage.jpg');
-uploadImageFileToS3(testFile, 'test');
+//const fs = require('fs');
+//let testFile = fs.createReadStream('testimage.jpg');
+//uploadImageFileToS3(testFile, 'test');
 //
 
 async function uploadNewPost() {
