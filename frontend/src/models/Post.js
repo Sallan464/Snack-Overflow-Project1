@@ -2,30 +2,31 @@
 
 class Post {
 
-    constructor(imageURL, caption, score = 0, date = new Date()) {  // id = posts.length) {
-        // this._id = id;
+    constructor(imageURL, caption, userName = 'anon', score = 0, date = new Date()) {  // id = posts.length) {
+        if (!userName) userName = 'anon';
         this._date = date;
         this._score = score;
         this.imageURL = imageURL;
         this.caption = caption;
+        this.userName = userName;
         this.comments = [];
     }
 
-    static newPost(imageURL, caption, score = 0, date = new Date()) {
-        return new Post(imageURL, caption, score, date);
+    static newPost(imageURL, caption, userName = 'anon', score = 0, date = new Date()) {
+        return new Post(imageURL, caption, userName, score, date);
     }
 
     static newPostFromJson(json) {
-        return new Post(json.imageURL, json.caption, json.score, json.date) // json.id, 
+        return new Post(json.imageURL, json.caption, json.userName, json.score, json.date)
     }
 
     toJson() {
         return {
-            // 'id': this._id,
-            'date': `${this._date}`,
-            'score': `${this._score}`,
             'imageURL': `${this.imageURL}`,
             'caption': `${this.caption}`,
+            'userName': `${this.userName}`,
+            'score': `${this._score}`,
+            'date': `${this._date}`,
             'comments': `${this.comments}`
         }
     }

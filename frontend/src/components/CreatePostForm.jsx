@@ -21,22 +21,30 @@ class CreatePostForm extends React.Component {
         e.preventDefault();
 
         // Upload image first
-        const fileData = new FormData(); //FormData is a React defualt
-        fileData.append('image', this.state.selectedFile, this.state.selectedFile.name);
-        axios.post('http://localhost:8080/new-post-img', fileData)//'url that accepts form data added and send to server url to store uploaded file in backend', formData)
-            .then(res => {
-                console.log(res);
-            })
+        // const fileData = new FormData(); //FormData is a React defualt
+        // fileData.append('image', this.state.selectedFile, this.state.selectedFile.name);
+        // axios.post('http://localhost:8080/new-post-img', fileData)//'url that accepts form data added and send to server url to store uploaded file in backend', formData)
+        //     .then(res => {
+        //         console.log(res);
+        //     })
 
         // Then upload post data
-        const postData = Post.newPost('imageurl', e.target.userName.value, e.target.userCaption).toJson()
+        console.log(e.target.userName.value)
+        const postData = Post.newPost('imageurl', e.target.userCaption.value, e.target.userName.value).toJson()
         console.log(postData);
-        axios.post('http://localhost:8000/new-post-data', 'test')//, {
-            // headers: {
-            //     // Overwrite Axios's automatically set Content-Type
-            //     'Content-Type': 'application/json'
-            // }
-            // })
+        // const postStr = JSON.stringify(postData);
+        // axios.post('http://localhost:8080/new-post-img', postData, {
+        //     headers: {
+        //         // Overwrite Axios's automatically set Content-Type
+        //         'Content-Type': 'application/json'
+        //     }
+        // })
+        //     .then(res => {
+        //         console.log(res);
+        //     })
+
+        // let validJson = { 'test': 'shouldwork' };
+        axios.post('http://localhost:8080/new-post-data', postData)
             .then(res => {
                 console.log(res);
             })
@@ -91,7 +99,7 @@ class CreatePostForm extends React.Component {
                     </div>
 
                 </form>
-            </div>
+            </div >
         )
     }
 }

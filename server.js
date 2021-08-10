@@ -1,12 +1,16 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const bodyParser = require('body-parser');
 app.use(cors());
 
 const fileUpload = require('express-fileupload');
 // const bodyParser = require('body-parser');
 // const morgan = require('morgan');
 const _ = require('lodash');
+
+// This is needed to parse the req body
+app.use(bodyParser());
 
 
 
@@ -81,31 +85,11 @@ app.post('/new-post-img', async (req, res) => {
     }
 })
 
-// TODO:
 app.post('/new-post-data', async (req, res) => {
-    console.log('hit new post data endpoint!')
+    console.log(req.body);
     res.send({
         status: true,
-        message: 'Data is uploaded',
+        message: req.body,
         body: req.body
     });
-    // try {
-    //     if (!req.files) {
-    //         res.send({
-    //             status: false,
-    //             message: 'No file uploaded'
-    //         });
-    //     } else {
-
-    //         // Do stuff with file here –> upload copy to S3
-    //         // Then respond
-    //         res.send({
-    //             status: true,
-    //             message: 'File is uploaded',
-    //             body: req.body
-    //         });
-    //     }
-    // } catch (err) {
-    //     res.status(500).send(err);
-    // }
 })
