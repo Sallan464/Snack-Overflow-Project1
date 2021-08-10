@@ -7,7 +7,7 @@ const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const _ = require('lodash');
-const { fakeData } = require('./frontend/src/data/Posts');
+//const { fakeData } = require('./frontend/src/data/Posts');
 
 
 
@@ -31,7 +31,7 @@ app.use(fileUpload({
 
 
 let posts = [
-    { imageURL: "https://realfood.tesco.com/media/images/RFO-1400x919-ChickenClubSandwich-0ee77c05-5a77-49ac-a3bd-4d45e3b4dca7-0-1400x919.jpg", caption: "chicken triangle with dip" },
+    { imageURL: "https://media.gettyimages.com/photos/strawberry-dessert-in-a-clear-bowl-picture-id159758583?s=612x612", caption: "chicken triangle with dip" },
     { imageURL: "https://img.taste.com.au/c33UcYVI/taste/2016/11/giant-club-sandwich-110755-1.jpeg", caption: "big boi chicken bacon lettuce thing" },
     { imageURL: "https://assets.bonappetit.com/photos/57aca69153e63daf11a4d915/5:4/w_3515,h_2812,c_limit/california-veggie-sandwich.jpg", caption: "california veggie" },
     { imageURL: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-200511-seo-club-sandwich-h-14383-eb-1590780714.jpg", caption: "ham triangle with crisps" },
@@ -47,16 +47,17 @@ app.listen(port, () => {
 })
 
 app.get("/get-posts", (req, res) => {
-    res.send(fakeData)
+    res.send(posts)
 })
 
 // app.post('/refresh-posts', async (req, res) => {
 
 // })
 
-app.put('/update-post-score', async (req, res) => {
+app.post('/update-post-score', (req, res) => {
     //get the id and the new score
     //send it to the server
+    console.log(req)
 })
 
 app.post('/new-post', async (req, res) => {

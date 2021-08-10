@@ -1,4 +1,4 @@
-const posts = require('../data/Posts')
+//const posts = require('../data/Posts')
 let idCounter;
 
 
@@ -12,8 +12,6 @@ class Post {
         this.caption = caption;
         this.comments = [];
     }
-
-
 
     static newPost(imageURL, caption) {
         return new Post(imageURL, caption);

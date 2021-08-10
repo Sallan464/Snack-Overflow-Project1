@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '../components/Card';
-import { fakeData, getSortedPosts, posts } from '../data/Posts';
+import { getSortedPosts, posts } from '../data/Posts';
 import RestfulInterface from '../models/RestfulInterface';
 
 class CardList extends React.Component {
@@ -10,10 +10,11 @@ class CardList extends React.Component {
         this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
         RestfulInterface.getPosts();
         this.posts = getSortedPosts();
+        console.log(this.posts);
     }
 
     rerenderParentCallback() {
-        RestfulInterface.refreshPosts();
+        RestfulInterface.getPosts();
         this.posts = getSortedPosts();
         this.forceUpdate();
     }
@@ -39,4 +40,4 @@ class CardList extends React.Component {
     }
 }
 
-export default CardList
+export default CardList;

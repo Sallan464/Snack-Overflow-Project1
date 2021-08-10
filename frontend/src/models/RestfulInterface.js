@@ -1,4 +1,4 @@
-import { posts, fakeData } from "../data/Posts";
+import { posts } from "../data/Posts";
 import Post from "./Post";
 
 class RestfulInterface {
@@ -34,10 +34,17 @@ class RestfulInterface {
             .catch(err => console.log(`request failed: ${err}`));
     }
 
-    static updateScore () { 
-        
-
+    static updateScore (id, score) {    
+        fetch('http://localhost:8080/update-post-score',{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/json"
+        }, 
+        body: `{"id": ${id}, "score": ${score}}`}
+        );
     }
+
+
     static getPosts () { 
          fetch('http://localhost:8080/get-posts', {
             method: 'GET',
@@ -72,14 +79,14 @@ class RestfulInterface {
     }
 }
 
+function createData(data) {
+    console.log(data);
+    for(let i=0; i< data.length; i++) {
+        posts[i] = new Post(data[i].imageURL, data[i].caption, 0, data[i].date = new Date(), data[i].id);
+    }
+    console.log(posts);
+    return posts;
+}
+
 export default RestfulInterface;
 
-function createData(data) {
-    
-    for(let i=0; i< data.length; i++) {
-        let id = data[i].id
-        id = new Post(data[i].imageURL, data[i].caption, data[i].score = 0, data[i].date = new Date())
-        fakeData[i] = id
-    }
-    return fakeData
-}
