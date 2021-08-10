@@ -27,38 +27,6 @@ class RestfulInterface {
             }
         });
     }
-
-    static async updatePosts() {
-        let dataToPost = { 'posts': posts };
-        // fetch('https://the-artist-fka-snack-overflow.herokuapp.com/update-posts', {
-        fetch('http://localhost:8080/update-posts', {
-            method: 'Post',
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: dataToPost
-        })
-            .then(resp => console.log(`request succeeded with response ${resp}`))
-            .catch(err => console.log(`request failed: ${err}`));
-    }
-
-    static async saveNewPost(postData) {
-        // send all posts data
-        // let dataToPost = { 'posts': posts };
-        // plus image file
-
-        // fetch('https://the-artist-fka-snack-overflow.herokuapp.com/new-post', {
-        fetch('http://localhost:8080/new-post', {
-            method: 'Post',
-            headers: {
-                "Content-type": "application/json"
-            },
-            // body: JSON.stringify(dataToPost)
-            body: postData,
-        })
-            .then(resp => console.log(`request succeeded with response ${resp}`))
-            .catch(err => console.log(`request failed: ${err}`));
-    }
 }
 
 export default RestfulInterface;

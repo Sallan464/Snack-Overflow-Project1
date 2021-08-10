@@ -25,21 +25,26 @@ let posts = [
 ];
 
 //routes
-app.get("/", (req, res) => {
-    res.send("index");
-})
-
 app.get("/get-posts", (req, res) => {
-    res.send(posts);
+
+    // First update local fs here by fetching from S3 bucket ~
+
+
+    // Then parse string to json
+    let rawData = fs.readFileSync(__dirname + '/tmp/json/posts.json');
+    let postData = JSON.parse(rawData);
+
+    // NOTE: This postData is not yet formatted or validated!
+    //       Expect it not to work.
+    res.send(postData);
 })
 
 app.post('/update-posts', async (req, res) => {
-    try {
-        res.send()
-    } catch (err) {
-        console.log(err);
-        throw err;
-    }
+    // NOTE: this endpoint might be redundant.
+    // This would be called when posts are upvoted and commented on.
+    // The expected requeset body contains a single post object json.
+    // This would have the same functionality as /new-post-data
+    res.send(301);
 })
 
 app.post('/new-post-img', async (req, res) => {
@@ -81,13 +86,20 @@ app.post('/new-post-img', async (req, res) => {
 app.post('/new-post-data', async (req, res) => {
 
     // Create local copy of post data
-    fs.appendFile(__dirname + '/tmp/json/posts.json', JSON.stringify(req.body), (err) => {
+    fs.writeFile(__dirname + '/tmp/json/posts.json', JSON.stringify(req.body), (err) => {
         console.log(err.message);
     })
 
+    // Or just append (more formatting needed)
+    // fs.appendFile(__dirname + '/tmp/json/posts.json', JSON.stringify(req.body), (err) => {
+    //     console.log(err.message);
+    // })
+
+    // Then send copy to S3 bucket here ~
+
     res.send({
         status: true,
-        message: req.body,
+        message: 'data upload successful',
         body: req.body
     });
 });
