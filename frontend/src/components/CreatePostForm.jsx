@@ -7,35 +7,37 @@ import axios from 'axios'
 class CreatePostForm extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            selectedFile: null
+        }
+
+        this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
+        this.fileUploadHandler = this.fileUploadHandler.bind(this);
     }
 
     formSubmitHandler(e) {
         e.preventDefault();
-        
+
         const newPost = Post.newPost('imageurl', e.target.userName.value, e.target.userCaption)
         let jsonNewPost = newPost.toJson()
         let dataToSend = {
             posts: jsonNewPost,
-            imageFile : e.target.userFileUpload.value
+            imageFile: e.target.userFileUpload.value
         }
         RestfulInterface.saveNewPost(dataToSend)
     }
-    
-        // image file handler
-    state = {
-        selectedFile: null
-    }
-    
-    fileSelectedHandler(e) => {
+
+    fileSelectedHandler(e) {
         this.setState({
-            selectedFile = e.target.files[0]
+            selectedFile: e.target.files[0]
         });
     }
 
-    fileUploadHandler () => {
-        const fileData = new FormData(); //FormData is a React defualt
-        fileData.append('image', this.state.selectedFile, this.state.selectedFile.name);
-        axios.post('url that accepts form data added and send to server url to store uploaded file in backend', fileData);
+    fileUploadHandler() {
+        const formData = new FormData(); //FormData is a React defualt
+        formData.append('image', this.state.selectedFile, this.state.selectedFile.name);
+        axios.post('http://localhost:8080/new-post', formData)//'url that accepts form data added and send to server url to store uploaded file in backend', formData)
             .then(res => {
                 console.log(res);
             })
@@ -47,7 +49,8 @@ class CreatePostForm extends React.Component {
                 <form onSubmit={this.formSubmitHandler} id="new-post-form" name="form">
                     <div className="form-row">
                         <div id="upload-col" className="col-3 mx-auto">
-                            <input type="file" onChange={this.fileSelectedHandler} onClick={this.fileUploadHandler} id="user-file-upload" name="userFileUpload" className="hidden" />
+                            <input type="file" onChange={this.fileSelectedHandler} id="user-file-upload" name="userFileUpload" className="hidden" />
+                            <button onClick={this.fileUploadHandler}>Upload</button>
                             <label htmlFor="user-file-upload" className="btn btn-outline-secondary m-4">Add your photo</label>
                         </div>
                         {/* TODO: put button to show this input i.e. checkbox: "own it!"" */}
