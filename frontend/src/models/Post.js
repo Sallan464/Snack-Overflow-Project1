@@ -1,9 +1,9 @@
-
+import { posts } from '../data/Posts.js'
 
 class Post {
 
-    constructor(imageURL, caption, score = 0, date = new Date(), id = data.length) {
-        this._id = id;
+  constructor(imageURL, caption, score = 0, date = new Date()) {  // id = posts.length) {
+        // this._id = id;
         this._date = date;
         this._score = score;
         this.imageURL = imageURL;
@@ -11,17 +11,17 @@ class Post {
         this.comments = [];
     }
 
-    static newPost(imageURL, caption) {
-        return new Post(imageURL, caption);
+    static newPost(imageURL, caption, score = 0, date = new Date()) {
+        return new Post(imageURL, caption, score, date);
     }
 
     static newPostFromJson(json) {
-        return new Post(json.imageURL, json.caption, json.score, json.id, json.date)
+        return new Post(json.imageURL, json.caption, json.score, json.date) // json.id, 
     }
 
-    static toJson() {
+     toJson() {
         return {
-            'id': this._id,
+            // 'id': this._id,
             'date': this._date,
             'score': this._score,
             'imageURL': this.imageURL,

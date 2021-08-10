@@ -42,9 +42,9 @@ class RestfulInterface {
             .catch(err => console.log(`request failed: ${err}`));
     }
 
-    static async saveNewPost(post) {
+    static async saveNewPost(postData) {
         // send all posts data
-        let dataToPost = { 'posts': posts };
+        // let dataToPost = { 'posts': posts };
         // plus image file
 
         // fetch('https://the-artist-fka-snack-overflow.herokuapp.com/new-post', {
@@ -53,7 +53,8 @@ class RestfulInterface {
             headers: {
                 "Content-type": "application/json"
             },
-            body: JSON.stringify(dataToPost)
+            // body: JSON.stringify(dataToPost)
+            body: postData,
         })
             .then(resp => console.log(`request succeeded with response ${resp}`))
             .catch(err => console.log(`request failed: ${err}`));
