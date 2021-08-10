@@ -102,6 +102,11 @@ app.post('/new-post-data', async (req, res) => {
     // })
 
     // Then send copy to S3 bucket here ~
+    // req.body below current just receives one single post data, but could send all here
+    // which would serve as the only endpoint for serving aws bucket data. Instead we could
+    // use the local fs json: i.e. 
+    let localData = fs.readFileSync(__dirname + '/tmp/json/posts.json')
+    await replaceDataInS3(JSON.stringify(JSON.parse(localData)));
 
     res.send({
         status: true,
