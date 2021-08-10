@@ -4,8 +4,8 @@ const cors = require('cors');
 app.use(cors());
 
 const fileUpload = require('express-fileupload');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
+// const bodyParser = require('body-parser');
+// const morgan = require('morgan');
 const _ = require('lodash');
 
 
@@ -19,9 +19,9 @@ app.use(express.static(__dirname));
 
 //
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('dev'));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(morgan('dev'));
 
 // enable files upload
 app.use(fileUpload({
@@ -59,7 +59,7 @@ app.post('/update-posts', async (req, res) => {
     }
 })
 
-app.post('/new-post', async (req, res) => {
+app.post('/new-post-img', async (req, res) => {
     try {
         if (!req.files) {
             res.send({
@@ -67,67 +67,45 @@ app.post('/new-post', async (req, res) => {
                 message: 'No file uploaded'
             });
         } else {
-            //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
-            // let avatar = req.files.avatar;
 
-            //Use the mv() method to place the file in upload directory (i.e. "uploads")
-            // avatar.mv('./uploads/' + avatar.name);
+            // Do stuff with file here –> upload copy to S3
 
-            //send response
             res.send({
                 status: true,
                 message: 'File is uploaded',
                 body: req.body
-                // data: {
-                //     name: avatar.name,
-                //     mimetype: avatar.mimetype,
-                //     size: avatar.size
-                // }
             });
         }
     } catch (err) {
         res.status(500).send(err);
     }
-});
+})
 
-// We need this to build our post string
-// var querystring = require('querystring');
-// var http = require('http');
-// var fs = require('fs');
+// TODO:
+app.post('/new-post-data', async (req, res) => {
+    console.log('hit new post data endpoint!')
+    res.send({
+        status: true,
+        message: 'Data is uploaded',
+        body: req.body
+    });
+    // try {
+    //     if (!req.files) {
+    //         res.send({
+    //             status: false,
+    //             message: 'No file uploaded'
+    //         });
+    //     } else {
 
-// function PostCode(codestring) {
-//     // Build the post string from an object
-//     var post_data = querystring.stringify({
-//         'compilation_level': 'ADVANCED_OPTIMIZATIONS',
-//         'output_format': 'json',
-//         'output_info': 'compiled_code',
-//         'warning_level': 'QUIET',
-//         'js_code': codestring
-//     });
-
-//     // An object of options to indicate where to post to
-//     var post_options = {
-//         host: 'closure-compiler.appspot.com',
-//         port: '80',
-//         path: '/compile',
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/x-www-form-urlencoded',
-//             'Content-Length': Buffer.byteLength(post_data)
-//         }
-//     };
-
-//     // Set up the request
-//     var post_req = http.request(post_options, function (res) {
-//         res.setEncoding('utf8');
-//         res.on('data', function (chunk) {
-//             console.log('Response: ' + chunk);
-//         });
-//     });
-
-//     // post the data
-//     post_req.write(post_data);
-//     post_req.end();
-
-// }
-
+    //         // Do stuff with file here –> upload copy to S3
+    //         // Then respond
+    //         res.send({
+    //             status: true,
+    //             message: 'File is uploaded',
+    //             body: req.body
+    //         });
+    //     }
+    // } catch (err) {
+    //     res.status(500).send(err);
+    // }
+})

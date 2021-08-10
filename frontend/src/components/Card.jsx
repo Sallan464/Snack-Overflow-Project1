@@ -17,11 +17,11 @@ class Card extends React.Component {
     }
 
     isHighestScore() {
-        return this.props.posts.indexOf(this.props.post) == 0 ? true : false;
+        return this.props.posts.indexOf(this.props.post) === 0 ? true : false;
     }
 
     isLowestScore() {
-        return this.props.posts.indexOf(this.props.post) == this.props.posts.length - 1 ? true : false;
+        return this.props.posts.indexOf(this.props.post) === this.props.posts.length - 1 ? true : false;
     }
 
 

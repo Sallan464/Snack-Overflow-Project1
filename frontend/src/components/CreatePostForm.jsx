@@ -1,6 +1,6 @@
 import React from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
-import RestfulInterface from '../models/RestfulInterface';
+// import RestfulInterface from '../models/RestfulInterface';
 import Post from '../models/Post';
 import axios from 'axios'
 
@@ -13,35 +13,56 @@ class CreatePostForm extends React.Component {
         }
 
         this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
-        this.fileUploadHandler = this.fileUploadHandler.bind(this);
+        this.formSubmitHandler = this.formSubmitHandler.bind(this);
     }
 
-    formSubmitHandler(e) {
+    formSubmitHandler = async (e) => {
+        // For Debug
         e.preventDefault();
 
-        const newPost = Post.newPost('imageurl', e.target.userName.value, e.target.userCaption)
-        let jsonNewPost = newPost.toJson()
-        let dataToSend = {
-            posts: jsonNewPost,
-            imageFile: e.target.userFileUpload.value
-        }
-        RestfulInterface.saveNewPost(dataToSend)
+        // Upload image first
+        const fileData = new FormData(); //FormData is a React defualt
+        fileData.append('image', this.state.selectedFile, this.state.selectedFile.name);
+        axios.post('http://localhost:8080/new-post-img', fileData)//'url that accepts form data added and send to server url to store uploaded file in backend', formData)
+            .then(res => {
+                console.log(res);
+            })
+
+        // Then upload post data
+        const postData = Post.newPost('imageurl', e.target.userName.value, e.target.userCaption).toJson()
+        console.log(postData);
+        axios.post('http://localhost:8000/new-post-data', 'test')//, {
+            // headers: {
+            //     // Overwrite Axios's automatically set Content-Type
+            //     'Content-Type': 'application/json'
+            // }
+            // })
+            .then(res => {
+                console.log(res);
+            })
+
+        // axios.post('http://localhost:8080/new-post-data', postData)//'url that accepts form data added and send to server url to store uploaded file in backend', formData)
+        //     .then(res => {
+        //         console.log(res);
+        //     })
+
+        // RestfulInterface.saveNewPost(postData);
     }
 
-    fileSelectedHandler(e) {
+    fileSelectedHandler = async (e) => {
         this.setState({
             selectedFile: e.target.files[0]
         });
     }
 
-    fileUploadHandler() {
-        const formData = new FormData(); //FormData is a React defualt
-        formData.append('image', this.state.selectedFile, this.state.selectedFile.name);
-        axios.post('http://localhost:8080/new-post', formData)//'url that accepts form data added and send to server url to store uploaded file in backend', formData)
-            .then(res => {
-                console.log(res);
-            })
-    }
+    // fileUploadHandler() {
+    //     const fileData = new FormData(); //FormData is a React defualt
+    //     fileData.append('image', this.state.selectedFile, this.state.selectedFile.name);
+    //     axios.post('http://localhost:8080/new-post-img', fileData)//'url that accepts form data added and send to server url to store uploaded file in backend', formData)
+    //         .then(res => {
+    //             console.log(res);
+    //         })
+    // }
 
     render() {
         return (
@@ -50,7 +71,7 @@ class CreatePostForm extends React.Component {
                     <div className="form-row">
                         <div id="upload-col" className="col-3 mx-auto">
                             <input type="file" onChange={this.fileSelectedHandler} id="user-file-upload" name="userFileUpload" className="hidden" />
-                            <button onClick={this.fileUploadHandler}>Upload</button>
+                            {/* <button onClick={this.fileUploadHandler}>Upload</button> */}
                             <label htmlFor="user-file-upload" className="btn btn-outline-secondary m-4">Add your photo</label>
                         </div>
                         {/* TODO: put button to show this input i.e. checkbox: "own it!"" */}

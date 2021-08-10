@@ -1,4 +1,4 @@
-import { posts, fakeData } from "../data/Posts";
+import { posts } from "../data/Posts";
 import Post from "./Post";
 
 class RestfulInterface {
@@ -6,7 +6,7 @@ class RestfulInterface {
     static refreshPosts() {
         // Live API or Local
         //fetch('https://the-artist-fka-snack-overflow.herokuapp.com/info', { //should change endpoint name to get or get-posts
-        fetch('http://localhost:8000/get', {
+        fetch('http://localhost:8000/get-posts', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',

@@ -12,9 +12,4 @@ const getSortedPosts = () => {
     return posts;
 }
 
-
-// DEBUG
-
-let fakeData = [];
-
-export { fakeData, posts, getSortedPosts };
+export { posts, getSortedPosts };

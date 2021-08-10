@@ -3,7 +3,7 @@ import CreatePostForm from './components/CreatePostForm';
 import CardList from './containers/CardList';
 import Header from './containers/Header';
 import Main from './containers/Main';
-import RestfulInterface from './models/RestfulInterface';
+// import RestfulInterface from './models/RestfulInterface';
 
 class AppContent extends React.Component {
 

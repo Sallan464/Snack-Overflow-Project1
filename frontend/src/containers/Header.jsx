@@ -40,16 +40,16 @@ class Header extends React.Component {
                     <div className="collapse navbar-collapse px-4" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item px-2">
-                                <a className="nav-link" href="#">Newest Snaccs</a>
+                                <a className="nav-link" href="http://localhost:3000/#">Newest Snaccs</a>
                             </li>
                             <li className="nav-item px-2">
-                                <a className="nav-link" href="#">Top Snaccs</a>
+                                <a className="nav-link" href="http://localhost:3000/#">Top Snaccs</a>
                             </li>
                             <li className="nav-item px-2">
-                                <a className="nav-link" href="#">Hot Snaccs</a>
+                                <a className="nav-link" href="http://localhost:3000/#">Hot Snaccs</a>
                             </li>
                             <li className="nav-item px-2">
-                                <a className="nav-link" href="#">Not Snaccs</a>
+                                <a className="nav-link" href="http://localhost:300/#">Not Snaccs</a>
                             </li>
                         </ul>
                     </div>

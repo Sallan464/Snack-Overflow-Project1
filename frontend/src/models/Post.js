@@ -1,8 +1,8 @@
-import { posts } from '../data/Posts.js'
+// import { posts } from '../data/Posts.js'
 
 class Post {
 
-  constructor(imageURL, caption, score = 0, date = new Date()) {  // id = posts.length) {
+    constructor(imageURL, caption, score = 0, date = new Date()) {  // id = posts.length) {
         // this._id = id;
         this._date = date;
         this._score = score;
@@ -19,14 +19,14 @@ class Post {
         return new Post(json.imageURL, json.caption, json.score, json.date) // json.id, 
     }
 
-     toJson() {
+    toJson() {
         return {
             // 'id': this._id,
-            'date': this._date,
-            'score': this._score,
-            'imageURL': this.imageURL,
-            'caption': this.caption,
-            'comments': this.comments
+            'date': `${this._date}`,
+            'score': `${this._score}`,
+            'imageURL': `${this.imageURL}`,
+            'caption': `${this.caption}`,
+            'comments': `${this.comments}`
         }
     }
 

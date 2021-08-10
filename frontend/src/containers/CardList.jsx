@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '../components/Card';
-import { fakeData, getSortedPosts, posts } from '../data/Posts';
+import { getSortedPosts, posts } from '../data/Posts';
 import RestfulInterface from '../models/RestfulInterface';
 
 class CardList extends React.Component {
@@ -26,7 +26,6 @@ class CardList extends React.Component {
             <ul>
                 {
                     this.posts.map(post => {
-                        console.log(post);
                         return <Card
                             key={this.posts.indexOf(post)}
                             post={post}
