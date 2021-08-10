@@ -1,4 +1,5 @@
 import React from "react";
+
 // import { getSortedPosts } from "../data/Posts";
 
 class Card extends React.Component {
@@ -43,6 +44,8 @@ class Card extends React.Component {
 
         // update post list by incrementing post score
         this.props.posts[this.props.posts.indexOf(this.props.post)].incrementScore();
+        console.log("this is a log " + this.props.posts.id, this.props.post.score )
+        //updateScore(this.props.posts.id, this.props.post.score)
 
         this.props.rerenderParentCallback();
         this.forceUpdate();

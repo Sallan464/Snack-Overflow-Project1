@@ -1,15 +1,19 @@
+const posts = require('../data/Posts')
+let idCounter;
 
 
 class Post {
-
-    constructor(imageURL, caption, score = 0, date = new Date(), id = data.length) {
-        this._id = id;
+    static idCounter = 0;
+    constructor(imageURL, caption, score = 0, date = new Date (), id) {
+        this.id = ++Post.idCounter;
         this._date = date;
         this._score = score;
         this.imageURL = imageURL;
         this.caption = caption;
         this.comments = [];
     }
+
+
 
     static newPost(imageURL, caption) {
         return new Post(imageURL, caption);

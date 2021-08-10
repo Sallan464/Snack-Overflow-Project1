@@ -6,7 +6,7 @@ class RestfulInterface {
     static refreshPosts() {
         // Live API or Local
         //fetch('https://the-artist-fka-snack-overflow.herokuapp.com/info', { //should change endpoint name to get or get-posts
-        fetch('http://localhost:8000/get', {
+        fetch('http://localhost:8080/get-posts', {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
@@ -14,16 +14,8 @@ class RestfulInterface {
         },
         ).then(response => {
             if (response.ok) {
-                response.json().then(json => {
-                    // empty array
-                    // while (posts.length > 0) {
-                    //     posts.pop();
-                    // }
-                    // repopulate
-                    for (let i = 0; i < json.length; i++) {
-                        posts.push(Post.newPost(json[i].imageURL, json[i].caption))
-                    }
-                });
+                response.json()
+                .then()
             }
         });
     }
@@ -40,6 +32,26 @@ class RestfulInterface {
         })
             .then(resp => console.log(`request succeeded with response ${resp}`))
             .catch(err => console.log(`request failed: ${err}`));
+    }
+
+    static updateScore () { 
+        
+
+    }
+    static getPosts () { 
+         fetch('http://localhost:8080/get-posts', {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+            },
+        },
+        ).then(response => {
+            if (response.ok) {
+                response.json()
+                .then(createData)
+            }
+        });
+
     }
 
     static async saveNewPost(post) {
@@ -61,3 +73,13 @@ class RestfulInterface {
 }
 
 export default RestfulInterface;
+
+function createData(data) {
+    
+    for(let i=0; i< data.length; i++) {
+        let id = data[i].id
+        id = new Post(data[i].imageURL, data[i].caption, data[i].score = 0, data[i].date = new Date())
+        fakeData[i] = id
+    }
+    return fakeData
+}

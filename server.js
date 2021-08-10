@@ -1,12 +1,13 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-app.use(cors());
+
 
 const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const _ = require('lodash');
+const { fakeData } = require('./frontend/src/data/Posts');
 
 
 
@@ -29,7 +30,6 @@ app.use(fileUpload({
 }));
 
 
-
 let posts = [
     { imageURL: "https://realfood.tesco.com/media/images/RFO-1400x919-ChickenClubSandwich-0ee77c05-5a77-49ac-a3bd-4d45e3b4dca7-0-1400x919.jpg", caption: "chicken triangle with dip" },
     { imageURL: "https://img.taste.com.au/c33UcYVI/taste/2016/11/giant-club-sandwich-110755-1.jpeg", caption: "big boi chicken bacon lettuce thing" },
@@ -47,16 +47,16 @@ app.listen(port, () => {
 })
 
 app.get("/get-posts", (req, res) => {
-    res.send(posts)
+    res.send(fakeData)
 })
 
-app.post('/update-posts', async (req, res) => {
-    try {
-        res.send()
-    } catch (err) {
-        console.log(err);
-        throw err;
-    }
+// app.post('/refresh-posts', async (req, res) => {
+
+// })
+
+app.put('/update-post-score', async (req, res) => {
+    //get the id and the new score
+    //send it to the server
 })
 
 app.post('/new-post', async (req, res) => {
