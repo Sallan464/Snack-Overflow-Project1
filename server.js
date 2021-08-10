@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const express = require('express');
 const app = express();
 
@@ -27,12 +29,8 @@ app.get("/", (req, res) => {
     res.send("index");
 })
 
-app.listen(port, () => {
-    console.log("app is running");
-})
-
 app.get("/get-posts", (req, res) => {
-    res.send(posts)
+    res.send(posts);
 })
 
 app.post('/update-posts', async (req, res) => {
@@ -57,14 +55,16 @@ app.post('/new-post-img', async (req, res) => {
             });
         }
 
-        // Do stuff with file here –> upload copy to S3
+        // Make a copy of uploaded file and send to /tmp/img/ storage
         uploadedFile = req.files.image;
         console.log(uploadedFile);
-        uploadPath = __dirname + '/tmp/' + uploadedFile.name;
+        uploadPath = __dirname + '/tmp/img/' + uploadedFile.name;
 
         uploadedFile.mv(uploadPath, (err) => {
             res.status(500).send(err);
         });
+
+        // TODO: Send copy to AWS bucket here ~
 
         res.send({
             status: true,
@@ -79,10 +79,20 @@ app.post('/new-post-img', async (req, res) => {
 });
 
 app.post('/new-post-data', async (req, res) => {
-    // console.log(req.body);
+
+    // Create local copy of post data
+    fs.appendFile(__dirname + '/tmp/json/posts.json', JSON.stringify(req.body), (err) => {
+        console.log(err.message);
+    })
+
     res.send({
         status: true,
         message: req.body,
         body: req.body
     });
 });
+
+// Listen
+app.listen(port, () => {
+    console.log("app is running");
+})
