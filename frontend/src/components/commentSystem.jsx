@@ -24,7 +24,7 @@ class CommentBox extends React.Component {
       return(
         <div className="comment-box">
           <h2>Rate/Roast Your Snacks!</h2>
-          <CommentForm addComment={this._addComment.bind(this)}/>
+          <CommentForm addComment={this._addComment.bind(this)}/> ////bind is a function, so when its called, it sets the comment to provided value from client
           <button id="comment-reveal" onClick={this._handleClick.bind(this)}>
             {buttonText}
           </button>
@@ -37,7 +37,7 @@ class CommentBox extends React.Component {
       );
     } // end render
     
-    _addComment(author, body) {
+    _addComment(body) { //this is where the bind on line 27 comes in
       const comment = {
         id: this.state.comments.length + 1,
         body
@@ -88,9 +88,8 @@ class CommentBox extends React.Component {
     
     _handleSubmit(event) { 
       event.preventDefault();   // prevents page from reloading on submit
-      let author = this._author;
       let body = this._body;
-      this.props.addComment(author.value, body.value);
+      this.props.addComment(body.value);
     }
   } // end CommentForm component
   
@@ -98,7 +97,6 @@ class CommentBox extends React.Component {
     render () {
       return(
         <div className="comment">
-          <p className="comment-header">{this.props.author}</p>
           <p className="comment-body">- {this.props.body}</p>
         </div>
       );
