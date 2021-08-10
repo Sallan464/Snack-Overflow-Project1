@@ -12,7 +12,7 @@ async function authenticateAWS() {
             region: config.aws.region
         });
     } catch (err) {
-      console.log(err)
+        console.log(err)
         throw err;
     }
 }

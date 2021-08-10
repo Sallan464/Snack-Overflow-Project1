@@ -1,11 +1,14 @@
+
+
 class Post {
 
-    constructor(imageURL, caption, score = 0, id = 0, date = new Date()) {
+    constructor(imageURL, caption, score = 0, date = new Date(), id = data.length) {
         this._id = id;
         this._date = date;
         this._score = score;
         this.imageURL = imageURL;
         this.caption = caption;
+        this.comments = [];
     }
 
     static newPost(imageURL, caption) {
@@ -13,7 +16,7 @@ class Post {
     }
 
     static newPostFromJson(json) {
-        return new Post(json.imageURL, json.caption, json.score, json.id)
+        return new Post(json.imageURL, json.caption, json.score, json.id, json.date)
     }
 
     static toJson() {
@@ -22,7 +25,8 @@ class Post {
             'date': this._date,
             'score': this._score,
             'imageURL': this.imageURL,
-            'caption': this.caption
+            'caption': this.caption,
+            'comments': this.comments
         }
     }
 

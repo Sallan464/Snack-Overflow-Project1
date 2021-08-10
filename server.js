@@ -46,11 +46,20 @@ app.listen(port, () => {
     console.log("app is running");
 })
 
-app.get("/info", (req, res) => {
+app.get("/get-posts", (req, res) => {
     res.send(posts)
 })
 
-app.post('/upload-image', async (req, res) => {
+app.post('/update-posts', async (req, res) => {
+    try {
+        res.send()
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+})
+
+app.post('/new-post', async (req, res) => {
     try {
         if (!req.files) {
             res.send({
@@ -59,20 +68,21 @@ app.post('/upload-image', async (req, res) => {
             });
         } else {
             //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
-            let avatar = req.files.avatar;
+            // let avatar = req.files.avatar;
 
             //Use the mv() method to place the file in upload directory (i.e. "uploads")
-            avatar.mv('./uploads/' + avatar.name);
+            // avatar.mv('./uploads/' + avatar.name);
 
             //send response
             res.send({
                 status: true,
                 message: 'File is uploaded',
-                data: {
-                    name: avatar.name,
-                    mimetype: avatar.mimetype,
-                    size: avatar.size
-                }
+                body: req.body
+                // data: {
+                //     name: avatar.name,
+                //     mimetype: avatar.mimetype,
+                //     size: avatar.size
+                // }
             });
         }
     } catch (err) {
@@ -81,66 +91,43 @@ app.post('/upload-image', async (req, res) => {
 });
 
 // We need this to build our post string
-var querystring = require('querystring');
-var http = require('http');
-var fs = require('fs');
+// var querystring = require('querystring');
+// var http = require('http');
+// var fs = require('fs');
 
-function PostCode(codestring) {
-    // Build the post string from an object
-    var post_data = querystring.stringify({
-        'compilation_level': 'ADVANCED_OPTIMIZATIONS',
-        'output_format': 'json',
-        'output_info': 'compiled_code',
-        'warning_level': 'QUIET',
-        'js_code': codestring
-    });
+// function PostCode(codestring) {
+//     // Build the post string from an object
+//     var post_data = querystring.stringify({
+//         'compilation_level': 'ADVANCED_OPTIMIZATIONS',
+//         'output_format': 'json',
+//         'output_info': 'compiled_code',
+//         'warning_level': 'QUIET',
+//         'js_code': codestring
+//     });
 
-    // An object of options to indicate where to post to
-    var post_options = {
-        host: 'closure-compiler.appspot.com',
-        port: '80',
-        path: '/compile',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': Buffer.byteLength(post_data)
-        }
-    };
+//     // An object of options to indicate where to post to
+//     var post_options = {
+//         host: 'closure-compiler.appspot.com',
+//         port: '80',
+//         path: '/compile',
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/x-www-form-urlencoded',
+//             'Content-Length': Buffer.byteLength(post_data)
+//         }
+//     };
 
-    // Set up the request
-    var post_req = http.request(post_options, function (res) {
-        res.setEncoding('utf8');
-        res.on('data', function (chunk) {
-            console.log('Response: ' + chunk);
-        });
-    });
+//     // Set up the request
+//     var post_req = http.request(post_options, function (res) {
+//         res.setEncoding('utf8');
+//         res.on('data', function (chunk) {
+//             console.log('Response: ' + chunk);
+//         });
+//     });
 
-    // post the data
-    post_req.write(post_data);
-    post_req.end();
+//     // post the data
+//     post_req.write(post_data);
+//     post_req.end();
 
-}
-
-// Below is just to test post routing
-
-// This is an async file read
-fs.readFile('LinkedList.js', 'utf-8', function (err, data) {
-    if (err) {
-        // If this were just a small part of the application, you would
-        // want to handle this differently, maybe throwing an exception
-        // for the caller to handle. Since the file is absolutely essential
-        // to the program's functionality, we're going to exit with a fatal
-        // error instead.
-        console.log("FATAL An error occurred trying to read in the file: " + err);
-        process.exit(-2);
-    }
-    // Make sure there's data before we post it
-    if (data) {
-        PostCode(data);
-    }
-    else {
-        console.log("No data to post");
-        process.exit(-1);
-    }
-});
+// }
 
