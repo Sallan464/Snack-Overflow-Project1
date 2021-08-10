@@ -45,7 +45,7 @@ async function replaceDataInS3(newData) {
             ACL: 'public-read'
         }).promise();
 
-        console.log('done');
+        // console.log('done');
 
     } catch (e) {
         console.log(e);
@@ -78,7 +78,7 @@ async function uploadImageFileToS3(file, key) {
             ACL: 'public-read'
         }).promise();
 
-        console.log('done');
+        // console.log('done');
 
     } catch (e) {
         console.log(e);
@@ -100,21 +100,22 @@ async function uploadNewPost() {
 const data = {
     'posts': [
         {
-            'id': 0,
-            'datetime': '2021-08-09T17:22:11.323Z',
             'imageURL': 's3 image url here',
             'caption': 'caption here',
+            'userName': 'anon',
+            'datetime': '2021-08-09T17:22:11.323Z',
             'comments': ['hey great stuff', 'another comment', 'last comment']
         },
-
         {
-            'id': 1,
+            'imageURL': 's3 image url here',
+            'caption': 'caption here',
+            'userName': 'bob',
             'datetime': '2021-08-09T17:22:11.323Z',
-            'imageURL': 'image 2 here',
-            'caption': 'caption 2 here',
-            'comments': ['hey no so great stuff', 'another bad comment', 'no comment']
+            'comments': ['hey great stuff', 'another comment', 'last comment']
         }
     ]
 }
 
-module.exports = fetchPostsFromS3;
+// replaceDataInS3(data).then(resp => console.log('done'));
+
+module.exports = { fetchPostsFromS3, uploadImageFileToS3, replaceDataInS3 };

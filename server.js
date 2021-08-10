@@ -13,6 +13,8 @@ const fileUpload = require('express-fileupload');
 app.use(fileUpload());
 app.use(express.static(__dirname));
 
+const { fetchPostsFromS3, uploadImageFileToS3, replaceDataInS3 } = require('./AWSInterface');
+
 // port set by Heroku or 8080
 const port = process.env.PORT || 8080
 
@@ -25,18 +27,22 @@ let posts = [
 ];
 
 //routes
-app.get("/get-posts", (req, res) => {
+app.get("/get-posts", async (req, res) => {
 
     // First update local fs here by fetching from S3 bucket ~
-
+    let postList = await fetchPostsFromS3();
+    let postDataObj = { posts: postList };
+    fs.writeFile(__dirname + '/tmp/json/posts.json', JSON.stringify(postDataObj), (err) => {
+        console.log(err.message);
+    });
 
     // Then parse string to json
     let rawData = fs.readFileSync(__dirname + '/tmp/json/posts.json');
-    let postData = JSON.parse(rawData);
+    let postDataJson = JSON.parse(rawData);
 
     // NOTE: This postData is not yet formatted or validated!
     //       Expect it not to work.
-    res.send(postData);
+    res.send(postDataJson);
 })
 
 app.post('/update-posts', async (req, res) => {
