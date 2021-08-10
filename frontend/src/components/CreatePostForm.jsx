@@ -2,7 +2,7 @@ import React from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import RestfulInterface from '../models/RestfulInterface';
 import Post from '../models/Post';
-
+import axios from 'axios'
 
 class CreatePostForm extends React.Component {
     constructor(props) {
@@ -21,29 +21,25 @@ class CreatePostForm extends React.Component {
         RestfulInterface.saveNewPost(dataToSend)
     }
     
-        // let form = document.querySelector('form');
+        // image file handler
+    state = {
+        selectedFile: null
+    }
+    
+    fileSelectedHandler(e) => {
+        this.setState({
+            selectedFile = e.target.files[0]
+        });
+    }
 
-        // form.addEventListener('submit', (e) => {
-        // e.preventDefault();
-        // let name = formData.get('user-name');
-        // let fileUpload = formData.get('user-file-upload');
-        // let userCaption = formData.get('user-caption');
-
-        // 
-        //     name,
-        //     userCaption,
-        //     fileUpload
-        // };
-
-        // fetch('http://localhost:8080/', {
-        //     method: 'POST';
-        //     body: JSON.stringify(newPost);
-        //     headers{
-        //         'content-type': 'application/json'
-        //     }
-        // });
-
-
+    fileUploadHandler () => {
+        const fileData = new FormData(); //FormData is a React defualt
+        fileData.append('image', this.state.selectedFile, this.state.selectedFile.name);
+        axios.post('url that accepts form data added and send to server url to store uploaded file in backend', fileData);
+            .then(res => {
+                console.log(res);
+            })
+    }
 
     render() {
         return (
@@ -51,7 +47,7 @@ class CreatePostForm extends React.Component {
                 <form onSubmit={this.formSubmitHandler} id="new-post-form" name="form">
                     <div className="form-row">
                         <div id="upload-col" className="col-3 mx-auto">
-                            <input type="file" id="user-file-upload" name="userFileUpload" className="hidden" />
+                            <input type="file" onChange={this.fileSelectedHandler} onClick={this.fileUploadHandler} id="user-file-upload" name="userFileUpload" className="hidden" />
                             <label htmlFor="user-file-upload" className="btn btn-outline-secondary m-4">Add your photo</label>
                         </div>
                         {/* TODO: put button to show this input i.e. checkbox: "own it!"" */}
