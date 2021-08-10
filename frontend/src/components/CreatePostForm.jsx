@@ -1,6 +1,5 @@
 import React from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
-// import RestfulInterface from '../models/RestfulInterface';
 import Post from '../models/Post';
 import axios from 'axios'
 
@@ -21,40 +20,26 @@ class CreatePostForm extends React.Component {
         e.preventDefault();
 
         // Upload image first
-        // const fileData = new FormData(); //FormData is a React defualt
-        // fileData.append('image', this.state.selectedFile, this.state.selectedFile.name);
-        // axios.post('http://localhost:8080/new-post-img', fileData)//'url that accepts form data added and send to server url to store uploaded file in backend', formData)
-        //     .then(res => {
-        //         console.log(res);
-        //     })
-
-        // Then upload post data
-        console.log(e.target.userName.value)
-        const postData = Post.newPost('imageurl', e.target.userCaption.value, e.target.userName.value).toJson()
-        console.log(postData);
-        // const postStr = JSON.stringify(postData);
-        // axios.post('http://localhost:8080/new-post-img', postData, {
-        //     headers: {
-        //         // Overwrite Axios's automatically set Content-Type
-        //         'Content-Type': 'application/json'
-        //     }
-        // })
-        //     .then(res => {
-        //         console.log(res);
-        //     })
-
-        // let validJson = { 'test': 'shouldwork' };
-        axios.post('http://localhost:8080/new-post-data', postData)
+        const fileData = new FormData(); //FormData is a React defualt
+        fileData.append('image', this.state.selectedFile, this.state.selectedFile.name);
+        axios.post('http://localhost:8080/new-post-img', fileData)//'url that accepts form data added and send to server url to store uploaded file in backend', formData)
             .then(res => {
                 console.log(res);
             })
 
-        // axios.post('http://localhost:8080/new-post-data', postData)//'url that accepts form data added and send to server url to store uploaded file in backend', formData)
-        //     .then(res => {
-        //         console.log(res);
-        //     })
+        // Then post data
+        console.log(e.target.userName.value)
+        const postData = Post.newPost(
+            this.state.selectedFile.name,
+            e.target.userCaption.value,
+            e.target.userName.value)
+            .toJson()
 
-        // RestfulInterface.saveNewPost(postData);
+        console.log(postData);
+        axios.post('http://localhost:8080/new-post-data', postData)
+            .then(res => {
+                console.log(res);
+            })
     }
 
     fileSelectedHandler = async (e) => {
@@ -63,26 +48,15 @@ class CreatePostForm extends React.Component {
         });
     }
 
-    // fileUploadHandler() {
-    //     const fileData = new FormData(); //FormData is a React defualt
-    //     fileData.append('image', this.state.selectedFile, this.state.selectedFile.name);
-    //     axios.post('http://localhost:8080/new-post-img', fileData)//'url that accepts form data added and send to server url to store uploaded file in backend', formData)
-    //         .then(res => {
-    //             console.log(res);
-    //         })
-    // }
-
     render() {
         return (
             <div>
-                <form onSubmit={this.formSubmitHandler} id="new-post-form" name="form">
+                <form onSubmit={this.formSubmitHandler} id="new-post-form">
                     <div className="form-row">
                         <div id="upload-col" className="col-3 mx-auto">
-                            <input type="file" onChange={this.fileSelectedHandler} id="user-file-upload" name="userFileUpload" className="hidden" />
-                            {/* <button onClick={this.fileUploadHandler}>Upload</button> */}
+                            <input type="file" onChange={this.fileSelectedHandler} id="user-file-upload" name="userFileUpload" className="hidden" required />
                             <label htmlFor="user-file-upload" className="btn btn-outline-secondary m-4">Add your photo</label>
                         </div>
-                        {/* TODO: put button to show this input i.e. checkbox: "own it!"" */}
                         <div className="col-sm m-4">
                             <input id="user-name" name="userName" type="text" className="form-control" placeholder="optional: chefs name" />
                             <label htmlFor="user-name" className="m-2">who dun it?</label>
@@ -90,7 +64,7 @@ class CreatePostForm extends React.Component {
                     </div>
                     <div className="form-row mx-4">
                         <div className="w-100">
-                            <TextareaAutosize id="user-caption" name="userCaption" className="form-control" rows="1" placeholder="Some delicious description goes in here... (max 100 characters)" />
+                            <TextareaAutosize id="user-caption" name="userCaption" className="form-control" rows="1" placeholder="Some delicious description goes in here... (max 100 characters)" required />
                             <label htmlFor="user-caption" className="m-2">what's cookin'?</label>
                         </div>
                     </div>

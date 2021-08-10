@@ -1,39 +1,20 @@
 const express = require('express');
 const app = express();
-const cors = require('cors');
+
 const bodyParser = require('body-parser');
+app.use(bodyParser());
+
+const cors = require('cors');
 app.use(cors());
 
 const fileUpload = require('express-fileupload');
-// const bodyParser = require('body-parser');
-// const morgan = require('morgan');
-const _ = require('lodash');
-
-// This is needed to parse the req body
-app.use(bodyParser());
-
-
+app.use(fileUpload());
+app.use(express.static(__dirname));
 
 // port set by Heroku or 8080
 const port = process.env.PORT || 8080
 
-// use to connect to front end files once we merge the branches
-app.use(cors());
-app.use(express.static(__dirname));
-
-//
-
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(morgan('dev'));
-
-// enable files upload
-app.use(fileUpload({
-    createParentPath: true
-}));
-
-
-
+// tmp data
 let posts = [
     { imageURL: "https://realfood.tesco.com/media/images/RFO-1400x919-ChickenClubSandwich-0ee77c05-5a77-49ac-a3bd-4d45e3b4dca7-0-1400x919.jpg", caption: "chicken triangle with dip" },
     { imageURL: "https://img.taste.com.au/c33UcYVI/taste/2016/11/giant-club-sandwich-110755-1.jpeg", caption: "big boi chicken bacon lettuce thing" },
@@ -64,32 +45,44 @@ app.post('/update-posts', async (req, res) => {
 })
 
 app.post('/new-post-img', async (req, res) => {
+
+    let uploadedFile;
+    let uploadPath;
+
     try {
         if (!req.files) {
-            res.send({
+            return res.send({
                 status: false,
                 message: 'No file uploaded'
             });
-        } else {
-
-            // Do stuff with file here –> upload copy to S3
-
-            res.send({
-                status: true,
-                message: 'File is uploaded',
-                body: req.body
-            });
         }
+
+        // Do stuff with file here –> upload copy to S3
+        uploadedFile = req.files.image;
+        console.log(uploadedFile);
+        uploadPath = __dirname + '/tmp/' + uploadedFile.name;
+
+        uploadedFile.mv(uploadPath, (err) => {
+            res.status(500).send(err);
+        });
+
+        res.send({
+            status: true,
+            message: 'File is uploaded',
+            body: req.body
+        });
+
     } catch (err) {
+        console.log(err.message);
         res.status(500).send(err);
     }
-})
+});
 
 app.post('/new-post-data', async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     res.send({
         status: true,
         message: req.body,
         body: req.body
     });
-})
+});
