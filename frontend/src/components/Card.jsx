@@ -5,7 +5,7 @@ class Card extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log('card constructor called!')
+        // console.log('card constructor called!')
         this.onIncrBtnClick = this.onIncrBtnClick.bind(this);
         this.onDecrBtnClick = this.onDecrBtnClick.bind(this);
         this.onResetBtnClick = this.onResetBtnClick.bind(this);

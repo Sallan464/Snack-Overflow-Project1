@@ -29,7 +29,7 @@ class AppContent extends React.Component {
                         let updatedPosts = [];
                         console.log(json.posts.length);
                         for (let i = 0; i < json.posts.length; i++) {
-                            console.log(`${json.posts[i]}`);
+                            // console.log(`${json.posts[i]}`);
                             updatedPosts.push(Post.newPostFromJson(json.posts[i]));
                         }
                         console.log(json);
@@ -37,11 +37,11 @@ class AppContent extends React.Component {
                             isCreatePostSelected: this.isCreatePostSelected,
                             posts: updatedPosts
                         })
-                        console.log(this.state.posts);
+                        // console.log(this.state.posts);
                     });
+                this.render();
             }
         });
-        this.render();
     }
 
     isCreatePostSelectedToggler() {
@@ -58,7 +58,7 @@ class AppContent extends React.Component {
                     isCreatePostSelected={this.state.isCreatePostSelected} />
                 <Main content={
                     this.state.isCreatePostSelected ?
-                        <CreatePostForm isCreatePostSelectedToggler={this.isCreatePostSelectedToggler} />
+                        <CreatePostForm posts={this.state.posts} isCreatePostSelectedToggler={this.isCreatePostSelectedToggler} />
                         :
                         <CardList posts={this.state.posts} refreshPostsHandler={this.refreshPostsHandler} />
                 }

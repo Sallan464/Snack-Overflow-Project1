@@ -109,9 +109,18 @@ app.post('/new-post-img', async (req, res) => {
 
 app.post('/new-post-data', async (req, res) => {
 
+    console.log(req.body);
+
+    let jsonToParse = {
+        "posts": req.body
+    };
+
+    console.log(JSON.stringify(jsonToParse));
+    let parsedJson = JSON.stringify(jsonToParse);
+
     // Create local copy of post data
-    fs.writeFile(__dirname + '/tmp/json/posts.json', JSON.stringify(req.body), (err) => {
-        console.log(err.message);
+    fs.writeFile(__dirname + '/tmp/json/posts.json', parsedJson, (err) => {
+        if (err != null) console.log(err);
     })
 
     // Or just append (more formatting needed)
