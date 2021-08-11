@@ -19,15 +19,7 @@ class CreatePostForm extends React.Component {
         // For Debug
         e.preventDefault();
 
-        // Upload image first
-        const fileData = new FormData(); //FormData is a React defualt
-        fileData.append('image', this.state.selectedFile, this.state.selectedFile.name);
-        axios.post('http://localhost:8080/new-post-img', fileData)//'url that accepts form data added and send to server url to store uploaded file in backend', formData)
-            .then(res => {
-                console.log(res);
-            })
-
-        // Then post data
+        // update post data
         console.log(e.target.userName.value)
         const postData = Post.newPost(
             this.state.selectedFile.name,
@@ -40,6 +32,15 @@ class CreatePostForm extends React.Component {
             .then(res => {
                 console.log(res);
             })
+
+        // Upload image
+        const fileData = new FormData(); //FormData is a React defualt
+        fileData.append('image', this.state.selectedFile, postData.date) // use date of creation as UUID
+        axios.post('http://localhost:8080/new-post-img', fileData)//'url that accepts form data added and send to server url to store uploaded file in backend', formData)
+            .then(res => {
+                console.log(res);
+            })
+
     }
 
     fileSelectedHandler = async (e) => {

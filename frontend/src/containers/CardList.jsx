@@ -1,35 +1,33 @@
 import React from 'react';
 import Card from '../components/Card';
-import { getSortedPosts, posts } from '../data/Posts';
-import RestfulInterface from '../models/RestfulInterface';
 
 class CardList extends React.Component {
 
     constructor(props) {
         super(props);
         this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
-        RestfulInterface.refreshPosts();
-        this.posts = getSortedPosts();
+        this.refreshPostsHandler = this.refreshPostsHandler.bind(this);
     }
 
     rerenderParentCallback() {
-        RestfulInterface.refreshPosts();
-        this.posts = getSortedPosts();
+        this.props.refreshPostsHandler();
         this.forceUpdate();
     }
 
-    componentDidMount() {
+    refreshPostsHandler() {
+        this.props.refreshPostsHandler();
+        this.forceUpdate();
     }
 
     render() {
         return (
             <ul>
                 {
-                    this.posts.map(post => {
+                    this.props.posts.map(post => {
                         return <Card
-                            key={this.posts.indexOf(post)}
+                            key={post.id}
                             post={post}
-                            posts={posts}
+                            posts={this.props.posts}
                             rerenderParentCallback={this.rerenderParentCallback} />
                     })
                 }

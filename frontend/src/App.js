@@ -3,23 +3,51 @@ import CreatePostForm from './components/CreatePostForm';
 import CardList from './containers/CardList';
 import Header from './containers/Header';
 import Main from './containers/Main';
-// import RestfulInterface from './models/RestfulInterface';
+import Post from './models/Post';
 
 class AppContent extends React.Component {
 
     constructor() {
         super();
         this.isCreatePostSelectedToggler = this.isCreatePostSelectedToggler.bind(this);
-        this.state = { isCreatePostSelected: false };
+        this.refreshPostsHandler = this.refreshPostsHandler.bind(this);
+        this.state = { isCreatePostSelected: false, posts: [] };
+        this.refreshPostsHandler();
     }
 
-    // componentDidMount() {
-    //     this.restfulInterface.fetchPosts();
-    // }
+    refreshPostsHandler() {
+        fetch('http://localhost:8080/get-posts', {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+            },
+        }
+        ).then(response => {
+            if (response.ok) {
+                response.json()
+                    .then(json => {
+                        let updatedPosts = [];
+                        console.log(json.posts.length);
+                        for (let i = 0; i < json.posts.length; i++) {
+                            console.log(`${json.posts[i]}`);
+                            updatedPosts.push(Post.newPostFromJson(json.posts[i]));
+                        }
+                        console.log(json);
+                        this.setState({
+                            isCreatePostSelected: this.isCreatePostSelected,
+                            posts: updatedPosts
+                        })
+                        console.log(this.state.posts);
+                    });
+            }
+        });
+        this.render();
+    }
 
     isCreatePostSelectedToggler() {
         this.setState({
-            isCreatePostSelected: this.state.isCreatePostSelected ? false : true
+            isCreatePostSelected: this.state.isCreatePostSelected ? false : true,
+            posts: this.state.posts
         })
     }
 
@@ -32,7 +60,7 @@ class AppContent extends React.Component {
                     this.state.isCreatePostSelected ?
                         <CreatePostForm isCreatePostSelectedToggler={this.isCreatePostSelectedToggler} />
                         :
-                        <CardList />
+                        <CardList posts={this.state.posts} refreshPostsHandler={this.refreshPostsHandler} />
                 }
                 />
             </React.Fragment>

@@ -5,12 +5,12 @@ class Card extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log('card constructor called!')
         this.onIncrBtnClick = this.onIncrBtnClick.bind(this);
         this.onDecrBtnClick = this.onDecrBtnClick.bind(this);
         this.onResetBtnClick = this.onResetBtnClick.bind(this);
         this.state = {
             post: props.post,
-            score: props.post.score,
             hasBeenIncremented: false,
             hasBeenDecremented: false
         };
@@ -30,23 +30,6 @@ class Card extends React.Component {
     //       past voting on individual post after re-render.
 
     onIncrBtnClick() {
-        // Temporarily Disabled Checks!
-        // if user has not already selected upvote
-        // if (!this.state.hasBeenIncremented) {
-        //     // if user has previously selected downvote, add 2 to correct their vote 
-        //     this.setState({
-        //         score: this.state.hasBeenDecremented ?
-        //             this.state.score + 2 : this.state.score + 1,
-        //         hasBeenIncremented: true,
-        //         hasBeenDecremented: false
-        //     })
-
-        // update post list by incrementing post score
-        this.props.posts[this.props.posts.indexOf(this.props.post)].incrementScore();
-
-        this.props.rerenderParentCallback();
-        this.forceUpdate();
-        // }
     }
 
     onDecrBtnClick() {
@@ -65,20 +48,29 @@ class Card extends React.Component {
         this.props.posts[this.props.posts.indexOf(this.props.post)].decrementScore();
 
         this.props.rerenderParentCallback();
-        this.forceUpdate();
+        // this.forceUpdate();
         // }
     }
 
+    // async fetchImageFromServer(key) {
+    //     try {
+    //         const image = await fetch(`http://localhost:8080/get-image/sdfhjk`)//${key}`);
+    //         return image;
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
+
     onResetBtnClick() {
-        if (this.state.hasBeenDecremented || this.state.hasBeenIncremented) {
-            this.setState({
-                score: this.state.hasBeenIncremented ?
-                    this.state.score - 1 : this.state.score + 1,
-                hasBeenIncremented: false,
-                hasBeenDecremented: false
-            });
-            this.props.rerenderParentCallback();
-        }
+        // if (this.state.hasBeenDecremented || this.state.hasBeenIncremented) {
+        //     this.setState({
+        //         score: this.state.hasBeenIncremented ?
+        //             this.state.score - 1 : this.state.score + 1,
+        //         hasBeenIncremented: false,
+        //         hasBeenDecremented: false
+        //     });
+        //     this.props.rerenderParentCallback();
+        // }
     }
 
     render() {
@@ -109,7 +101,8 @@ class Card extends React.Component {
                     </button>
                 </div>
                 <div className="card-content w-100" style={{
-                    backgroundImage: `url(${this.props.post.imageURL})`, height: "300px", backgroundRepeat: "no-repeat"
+                    backgroundImage: `url(http://localhost:8080/get-image/${this.props.post.imageURL}`, height: "300px", backgroundRepeat: "no-repeat"
+                    // backgroundImage: `url(http://localhost:8080/get-image/test`, height: "300px", backgroundRepeat: "no-repeat"
                 }}>
 
                 </div>

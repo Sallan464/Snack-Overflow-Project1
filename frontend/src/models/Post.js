@@ -2,6 +2,8 @@
 
 class Post {
 
+    static idCounter = 0;
+
     constructor(imageURL, caption, userName = 'anon', score = 0, date = new Date()) {  // id = posts.length) {
         if (!userName) userName = 'anon';
         this._date = date;
@@ -10,6 +12,7 @@ class Post {
         this.caption = caption;
         this.userName = userName;
         this.comments = [];
+        this.id = ++Post.idCounter;
     }
 
     static newPost(imageURL, caption, userName = 'anon', score = 0, date = new Date()) {
@@ -22,6 +25,7 @@ class Post {
 
     toJson() {
         return {
+            'id': `${this.id}`,
             'imageURL': `${this.imageURL}`,
             'caption': `${this.caption}`,
             'userName': `${this.userName}`,

@@ -30,11 +30,11 @@ let posts = [
 app.get("/get-posts", async (req, res) => {
 
     // First update local fs here by fetching from S3 bucket ~
-    let postList = await fetchPostsFromS3();
-    let postDataObj = { posts: postList };
-    fs.writeFile(__dirname + '/tmp/json/posts.json', JSON.stringify(postDataObj), (err) => {
-        console.log(err.message);
-    });
+    // let postList = await fetchPostsFromS3();
+    // let postDataObj = { posts: postList };
+    // fs.writeFile(__dirname + '/tmp/json/posts.json', JSON.stringify(postDataObj), (err) => {
+    //     console.log(err);
+    // });
 
     // Then parse string to json
     let rawData = fs.readFileSync(__dirname + '/tmp/json/posts.json');
@@ -43,7 +43,24 @@ app.get("/get-posts", async (req, res) => {
     // NOTE: This postData is not yet formatted or validated!
     //       Expect it not to work.
     res.send(postDataJson);
-})
+});
+
+app.get("/get-image/:key", async (req, res) => {
+
+    // check if server has file already downloaded
+    // fs.exists
+    fs.stat(__dirname + '/tmp/img/' + req.params.key, function (err, stat) {
+        if (err != null) {
+            // if not, check s3 bucket
+            //if not in bucket send server error image
+            return res.sendFile(__dirname + '/server-error.png')
+        } else {
+            // image DOES exist
+            // return image
+            res.sendFile(__dirname + '/tmp/img/' + req.params.key);
+        }
+    });
+});
 
 app.post('/update-posts', async (req, res) => {
     // NOTE: this endpoint might be redundant.
@@ -51,7 +68,7 @@ app.post('/update-posts', async (req, res) => {
     // The expected requeset body contains a single post object json.
     // This would have the same functionality as /new-post-data
     res.send(301);
-})
+});
 
 app.post('/new-post-img', async (req, res) => {
 
@@ -76,6 +93,7 @@ app.post('/new-post-img', async (req, res) => {
         });
 
         // TODO: Send copy to AWS bucket here ~
+        await uploadImageFileToS3(uploadedFile, uploadedFile.name);
 
         res.send({
             status: true,

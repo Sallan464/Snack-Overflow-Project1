@@ -15,14 +15,11 @@ class RestfulInterface {
         ).then(response => {
             if (response.ok) {
                 response.json().then(json => {
-                    // empty array
-                    // while (posts.length > 0) {
-                    //     posts.pop();
-                    // }
-                    // repopulate
+                    let retval = [];
                     for (let i = 0; i < json.length; i++) {
-                        posts.push(Post.newPost(json[i].imageURL, json[i].caption))
+                        retval.push(Post.newPost(json[i].imageURL, json[i].caption))
                     }
+                    return retval;
                 });
             }
         });
