@@ -9,7 +9,7 @@ import Post from '../models/Post';
 let posts = [];
 
 const getSortedPosts = () => {
-    console.log("Here are some posts");
+    console.log("sorting the posts");
     console.log(posts.sort((a, b) => b.score - a.score));
     return posts.sort((a, b) => b.score - a.score)
 };

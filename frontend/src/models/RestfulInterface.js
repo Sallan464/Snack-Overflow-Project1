@@ -51,11 +51,11 @@ class RestfulInterface {
             headers: {
                 Accept: 'application/json',
             },
-        },
+        }
         ).then(response => {
             if (response.ok) {
                 response.json()
-                .then(createData)
+                .then(res => createData(res))
             }
         });
 

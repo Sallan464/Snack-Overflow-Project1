@@ -46,7 +46,7 @@ class Card extends React.Component {
 
         // update post list by incrementing post score
         this.props.posts[this.props.posts.indexOf(this.props.post)].incrementScore();
-        console.log("this is a log " + this.props.post.id, this.props.post.score)
+        console.log("this is a log of changing the score" + this.props.post.id, this.props.post.score)
         RestfulInterface.updateScore(this.props.post.id, this.props.post.score)
 
         this.props.rerenderParentCallback();
